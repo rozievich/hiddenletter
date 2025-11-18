@@ -1,7 +1,10 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+from datetime import timedelta
 
 
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -20,7 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Custom apps
-    'letters.apps.LettersConfig'
+    'letters.apps.LettersConfig',
+    # Custom packages
+    'drf_yasg',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -75,6 +81,39 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Django REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+    'DATE_INPUT_FORMATS': [
+        '%Y-%m-%d',
+        '%d.%m.%Y',
+        '%d/%m/%Y',
+    ]
+}
+
+
+# Simple JWT Configuration
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+    "UPDATE_LAST_LOGIN": True,
+    "ALGORITHM": "HS256"
+}
+
+
+# Swagger settings
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      },
+   }
+}
 
 
 LANGUAGE_CODE = 'en-us'
