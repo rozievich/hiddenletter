@@ -107,7 +107,10 @@ REST_FRAMEWORK = {
         '%Y-%m-%d',
         '%d.%m.%Y',
         '%d/%m/%Y',
-    ]
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '60/minute',
+    }
 }
 
 
@@ -142,6 +145,7 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
