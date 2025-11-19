@@ -11,3 +11,6 @@ class Letter(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.content[:50]
